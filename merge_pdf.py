@@ -58,6 +58,13 @@ def cli():
     if not path.exists(even_pages):
         print(f"File \"{even_pages}\" does not exist")
         exit(1)
+    if not odd_pages.endswith(".pdf"):
+        print(f"File \"{odd_pages}\" is not a pdf file")
+        exit(1)
+    if not even_pages.endswith(".pdf"):
+        print(f"File \"{even_pages}\" is not a pdf file")
+        exit(1)
+        
     if not output_file.endswith(".pdf"):
         output_file += ".pdf"
 
