@@ -19,10 +19,26 @@ def get_pages(odd_pages, even_pages):
 
 def merge_pages(odd_pages, even_pages):
     output = PdfWriter()
-    for i in range(len(odd_pages.pages)):
-        output.add_page(odd_pages.pages[i])
-        output.add_page(even_pages.pages[i])
-    return output
+    shorter = min(len(odd_pages.pages), len(even_pages.pages))
+    if len(odd_pages.pages) != len(even_pages.pages):
+        print(f"Warning: odd pages has {len(odd_pages.pages)} pages and even pages has {len(even_pages.pages)} pages")
+        print(f"Only merging the first {shorter} pages")
+        for i in range(shorter):
+            output.add_page(odd_pages.pages[i])
+            output.add_page(even_pages.pages[i])
+        print(f"Merging longer pages to the end of the output file")
+        if len(odd_pages.pages) > len(even_pages.pages):
+            for i in range(shorter, len(odd_pages.pages)):
+                output.add_page(odd_pages.pages[i])
+        else:
+            for i in range(shorter, len(even_pages.pages)):
+                output.add_page(even_pages.pages[i])
+        return output
+    else:
+        for i in range(shorter):
+            output.add_page(odd_pages.pages[i])
+            output.add_page(even_pages.pages[i])
+        return output
 
 def write_pages(output, output_file):
     with open(output_file, "wb") as f:
