@@ -1,5 +1,10 @@
 from os import system, path
 from sys import argv
+
+if system("python3 -m pip --version > /dev/null") != 0:
+    print("Please install python3 and pip3")
+    exit(1)
+
 try:
     from pypdf import PdfReader, PdfWriter
 except ImportError:
